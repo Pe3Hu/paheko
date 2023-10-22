@@ -49,4 +49,12 @@ func set_icons(input_: Dictionary) -> void:
 	
 	input.subtype = "spares"
 	toughnessIcon.set_attributes(input)
+
+
+func get_suit() -> String:
+	return suitIcon.subtype
+
+
+func get_rank() -> int:
+	return rankValue.get_number()
 	

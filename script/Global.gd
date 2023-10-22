@@ -25,8 +25,9 @@ func _ready() -> void:
 func init_arr() -> void:
 	arr.edge = [1, 2, 3, 4, 5, 6]
 	arr.element = ["aqua", "wind", "fire", "earth"]
-	arr.rank = [1, 2, 3, 4, 5, 6, 7, 8, 9]
+	arr.rank = [1, 2, 3, 4, 5, 6]#, 7, 8, 9]
 	arr.suit = ["aqua", "wind", "fire", "earth"]
+	arr.combination = ["duplet", "duplet_on_duplet", "triplet", "straight", "flush", "triplet_on_duplet", "quartet", "straight_on_flush", "quintet"]
 
 
 func init_num() -> void:
@@ -93,9 +94,7 @@ func init_scene() -> void:
 	scene.gambler = load("res://scene/1/gambler.tscn")
 	
 	scene.card = load("res://scene/2/card.tscn")
-	scene.token = load("res://scene/2/token.tscn")
 	scene.resource = load("res://scene/2/resource.tscn")
-	scene.crown = load("res://scene/2/crown.tscn")
 	pass
 
 

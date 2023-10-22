@@ -22,12 +22,12 @@ func set_attributes(input_: Dictionary) -> void:
 	broken.set_attributes(input_)
 	hand.set_attributes(input_)
 	
-	next_turn()
+	#next_turn()
 
 
 func init_starter_kit_cards() -> void:
-	for suit in Global.arr.suit:
-		for rank in Global.arr.rank:
+	for rank in Global.arr.rank:
+		for suit in Global.arr.suit:
 			var input = {}
 			input.rank = rank
 			input.suit = suit
@@ -36,15 +36,18 @@ func init_starter_kit_cards() -> void:
 			available.cards.add_child(card)
 			card.set_attributes(input)
 			card.gameboard = self
+			card.area = available
+			print([card.get_index(), suit, rank])
 	
-	reshuffle_available()
+	print("___")
+	#reshuffle_available()
 
 
 func reshuffle_available() -> void:
 	var cards = []
 	
 	while available.cards.get_child_count() > 0:
-		var card = pull_card()
+		var card = pull_random_card()
 		cards.append(card)
 	
 	cards.shuffle()
@@ -53,11 +56,24 @@ func reshuffle_available() -> void:
 		available.cards.add_child(card)
 
 
-func pull_card() -> Variant:
+func pull_random_card() -> Variant:
 	var cards = available.cards
 	
 	if cards.get_child_count() > 0:
 		var card = cards.get_children().pick_random()
+		cards.remove_child(card)
+		return card
+	
+	print("error: empty available")
+	return null
+
+
+func pull_indexed_card(index_: int) -> Variant:
+	var cards = available.cards
+	var a = cards.get_children()
+	
+	if cards.get_child_count() > 0:
+		var card = cards.get_child(index_)
 		cards.remove_child(card)
 		return card
 	

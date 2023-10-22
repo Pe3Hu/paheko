@@ -58,6 +58,7 @@ layout_mode = 2
 layout_mode = 2
 
 [node name="Toughness" type="HBoxContainer" parent="VBox"]
+visible = false
 layout_mode = 2
 alignment = 1
 
