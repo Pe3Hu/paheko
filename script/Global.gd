@@ -25,13 +25,17 @@ func _ready() -> void:
 func init_arr() -> void:
 	arr.edge = [1, 2, 3, 4, 5, 6]
 	arr.element = ["aqua", "wind", "fire", "earth"]
-	arr.rank = [1, 2, 3, 4, 5, 6]#, 7, 8, 9]
-	arr.suit = ["aqua", "wind", "fire", "earth"]
-	arr.combination = ["duplet", "duplet_on_duplet", "triplet", "straight", "flush", "triplet_on_duplet", "quartet", "straight_on_flush", "quintet"]
+	#arr.rank = [1, 2, 3, 4, 5, 6]#, 7, 8, 9]
+	#arr.suit = ["aqua", "wind", "fire", "earth"]
+	arr.rank = [1, 2, 3, 4, 5]
+	arr.suit = ["aqua", "wind", "fire", "earth", "1"]
+	arr.combination = ["duplet", "duplet_on_duplet", "triplet", "straight", "flush", "triplet_on_duplet", "quartet", "straight_on_flush", "roayl_flush", "quintet"]
 
 
 func init_num() -> void:
 	num.index = {}
+	
+	num.index.card = 0
 
 
 func init_dict() -> void:

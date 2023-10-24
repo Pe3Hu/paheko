@@ -73,11 +73,16 @@ func pull_indexed_card(index_: int) -> Variant:
 	var a = cards.get_children()
 	
 	if cards.get_child_count() > 0:
-		var card = cards.get_child(index_)
-		cards.remove_child(card)
-		return card
+		for card in cards.get_children():
+			#print(card.get_index_number(), " ", index_)
+			if card.get_index_number() == index_:
+				cards.remove_child(card)
+				return card
+	else:
+		print("error: empty available")
 	
-	print("error: empty available")
+		
+	print("error: no card with index: ", index_)
 	return null
 
 
@@ -177,3 +182,18 @@ func get_tokens_as_dict() -> Dictionary:
 	
 	return result
 
+
+func resort_available() -> void:
+	var datas = []
+	
+	while available.cards.get_child_count() > 0:
+		var card = pull_random_card()
+		var data = {}
+		data.card = card
+		data.index = card.get_index_number()
+		datas.append(data)
+	
+	datas.sort_custom(func(a, b): return a.index < b.index)
+	
+	for data in datas:
+		available.cards.add_child(data.card)

@@ -18,7 +18,8 @@ var toughness = {}
 
 func set_attributes(input_: Dictionary) -> void:
 	#var description = Global.dict.card.index[input_.index]
-	index.text = str(0)
+	index.text = str(Global.num.index.card)
+	Global.num.index.card += 1
 	charge.limit = 1
 	charge.current = charge.limit
 	toughness.limit = 1
@@ -57,4 +58,9 @@ func get_suit() -> String:
 
 func get_rank() -> int:
 	return rankValue.get_number()
-	
+
+
+func get_index_number() -> int:
+	return int(index.text)
+
+

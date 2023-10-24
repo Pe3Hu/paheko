@@ -4,7 +4,7 @@ extends MarginContainer
 @onready var gameboard = $VBox/Gameboard
 
 var casino = null
-var combinations = {}
+var datas = {}
 
 
 func set_attributes(input_: Dictionary) -> void:
@@ -21,21 +21,35 @@ func find_all_combinations() -> void:
 	var n = gameboard.hand.capacity.current
 	var m = gameboard.available.cards.get_child_count()
 	var k = 0
+	datas.index = {}
+	datas.combination = {}
 	
 	for _i in pow(m, 5):
 		var indexs = get_indexs(_i)
 		
 		if indexs.size() == n:
-			combinations[k] = {}
-			combinations[k].indexs = indexs
-			#print([_i, combination[k]])
+			indexs.sort()
 			
-			gameboard.hand.refill_based_on_card_indexs(indexs)
-			combinations[k].combinations = gameboard.hand.check_all_combinations()
-			gameboard.hand.discard()
+			if !datas.index.has(indexs):
+				datas.index[indexs] = {}
+				datas.index[indexs].k = k
+				gameboard.hand.refill_based_on_card_indexs(indexs)
+				datas.index[indexs].combination = gameboard.hand.check_all_combinations()
+				gameboard.hand.discard()
+				gameboard.resort_available()
+				#print([k, indexs, datas.index[indexs].combination])
+				
+				if !datas.combination.has(datas.index[indexs].combination):
+					datas.combination[datas.index[indexs].combination] = []
+				
+				datas.combination[datas.index[indexs].combination].append(indexs)
+				k += 1
+				
+				#print([datas.index[indexs].combination, datas.combination[datas.index[indexs].combination].size()])
 	
-			print(combinations[k])
-			k += 1
+	for combination in datas.combination:
+		print([combination, datas.combination[combination].size()])
+	var a = null
 
 
 func get_indexs(index_: int) -> Array:
