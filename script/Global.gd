@@ -28,8 +28,9 @@ func init_arr() -> void:
 	#arr.rank = [1, 2, 3, 4, 5, 6]#, 7, 8, 9]
 	#arr.suit = ["aqua", "wind", "fire", "earth"]
 	arr.rank = [1, 2, 3, 4, 5]
-	arr.suit = ["aqua", "wind", "fire", "earth", "1"]
+	arr.suit = ["aqua", "wind", "fire", "earth"]
 	arr.combination = ["duplet", "duplet_on_duplet", "triplet", "straight", "flush", "triplet_on_duplet", "quartet", "straight_on_flush", "roayl_flush", "quintet"]
+	arr.kit = ["unity", "harmony", "order"]
 
 
 func init_num() -> void:

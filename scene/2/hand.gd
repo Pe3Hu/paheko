@@ -12,7 +12,7 @@ var suits = {}
 func set_attributes(input_: Dictionary) -> void:
 	gameboard = input_.gameboard
 	
-	capacity.current = 4
+	capacity.current = 6
 	capacity.limit = 10
 
 
@@ -20,7 +20,7 @@ func refill() -> void:
 	gameboard.reshuffle_available()
 	
 	while cards.get_child_count() < capacity.current and gameboard.available.cards.get_child_count() > 0:
-		var card = gameboard.pull_card()
+		var card = gameboard.pull_random_card()
 		add_card(card)
 
 
@@ -43,6 +43,7 @@ func add_card(card_: MarginContainer) -> void:
 func refill_based_on_card_indexs(indexs_: Array) -> void:
 	var a = gameboard.available.cards.get_child_count()
 	var b = gameboard.available.cards.get_children()
+	
 	for index in indexs_:
 		draw_indexed_card(index)
 
@@ -210,3 +211,83 @@ func straight_on_flush_check() -> bool:
 
 func roayl_flush_check() -> bool:
 	return straight_on_flush_check() and ranks.has(Global.arr.rank.back()) and !ranks.has(Global.arr.rank.front())
+
+
+func get_all_kits() -> Dictionary:
+	var kits = {}
+	
+	for kit in Global.arr.kit:
+		var name_ = "get_" + kit + "_kits"
+		
+		#for count in Global.arr.count:
+		var count = capacity.current
+		kits[kit] = call("get_kits_based_on_type_and_count", kit, count)
+	
+	return kits
+
+
+func get_kits_based_on_type_and_count(type_: String, count_: int) -> Array:#args_: Array) -> Array:
+	var kits = []
+	var datas = {}
+	datas[0] = {}
+	datas[0] = []
+	var options = cards.get_children()
+	
+	for option in options:
+		datas[0].append([option])
+	
+	#var type = args_[0]
+	#var count = args_[1]
+	
+	for _i in count_:
+		datas[_i+1] = []
+		
+		for parents in datas[_i]:
+			var childs = []
+			
+			for option in options:
+				if !parents.has(option):
+					var flag = call("validate_"+type_, parents, option)
+					
+					if flag:
+						childs.append(option)
+			
+			for child in childs:
+				var parents_ = [child]
+				parents_.append_array(parents)
+				parents_.sort_custom(func(a, b): return a.get_index_number() < b.get_index_number())
+				
+				if !datas[_i+1].has(parents_):
+					datas[_i+1].append(parents_)
+	
+	for _i in datas:
+		if _i > 0:
+			kits.append_array(datas[_i])
+#			for cards_ in datas[_i]:
+#				print("___",_i+1)
+#				for card in cards_:
+#					print([card.get_suit(), card.get_rank()])
+	
+	return kits
+
+
+
+func validate_unity(parents_: Array, child_: MarginContainer) -> bool:
+	return parents_.front().get_suit() == child_.get_suit()
+
+
+func validate_harmony(parents_: Array, child_: MarginContainer) -> bool:
+	return parents_.front().get_rank() == child_.get_rank()
+
+
+func validate_order(parents_: Array, child_: MarginContainer) -> bool:
+	var first = parents_.front().get_rank() == child_.get_rank() + 1
+	var last = parents_.back().get_rank() + 1 == child_.get_rank()
+	
+	if !first:
+		first = child_.get_rank() == Global.arr.rank.back() and parents_.front().get_rank() == Global.arr.rank.front()
+	
+	if !last:
+		last = child_.get_rank() == Global.arr.rank.front() and parents_.front().get_rank() == Global.arr.rank.back()
+	
+	return first or last

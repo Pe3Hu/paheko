@@ -37,9 +37,9 @@ func init_starter_kit_cards() -> void:
 			card.set_attributes(input)
 			card.gameboard = self
 			card.area = available
-			print([card.get_index(), suit, rank])
+			#print([card.get_index(), suit, rank])
 	
-	print("___")
+	#print("___")
 	#reshuffle_available()
 
 
