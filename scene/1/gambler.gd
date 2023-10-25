@@ -14,7 +14,8 @@ func set_attributes(input_: Dictionary) -> void:
 	var input = {}
 	input.gambler = self
 	gameboard.set_attributes(input)
-	detect_hand_kits()
+	find_all_kits()
+	#detect_hand_kits()
 
 
 func detect_hand_kits() -> void:
@@ -43,12 +44,12 @@ func detect_hand_kits() -> void:
 	change_selected_sacrifice(0)
 
 
-func find_all_combinations() -> void:
+func find_all_kits() -> void:
 	var n = gameboard.hand.capacity.current
 	var m = gameboard.available.cards.get_child_count()
 	var k = 0
 	datas.index = {}
-	datas.combination = {}
+	datas.kit = {}
 	
 	for _i in pow(m, 5):
 		var indexs = get_indexs(_i)
@@ -60,19 +61,39 @@ func find_all_combinations() -> void:
 				datas.index[indexs] = {}
 				datas.index[indexs].k = k
 				gameboard.hand.refill_based_on_card_indexs(indexs)
-				datas.index[indexs].combination = gameboard.hand.check_all_combinations()
+				datas.index[indexs].kits = gameboard.hand.check_all_kits()
 				gameboard.hand.discard()
 				gameboard.resort_available()
-				#print([k, indexs, datas.index[indexs].combination])
+				#print([k, indexs, datas.index[indexs].kit])
 				
-				if !datas.combination.has(datas.index[indexs].combination):
-					datas.combination[datas.index[indexs].combination] = []
-				
-				datas.combination[datas.index[indexs].combination].append(indexs)
+				for kit in datas.index[indexs].kits:
+					if !datas.kit.has(kit):
+						datas.kit[kit] = []
+					
+					datas.kit[kit].append(indexs)
 				k += 1
 				
-				#print([datas.index[indexs].combination, datas.combination[datas.index[indexs].combination].size()])
+				#print([datas.index[indexs].kit, datas.kit[datas.index[indexs].kit].size()])
 	
+	for kit in Global.arr.kit:
+		print([kit, datas.kit[kit].size()])
+	
+	var dict = {}
+	
+	for indexs in datas.kit["order"]:
+		var ranks = []
+		
+		for index in indexs:
+			var card = gameboard.pull_indexed_card(index)
+			ranks.append(card.get_rank())
+			gameboard.available.cards.add_child(card)
+		
+		if !dict.has(ranks):
+			dict[ranks] = 0
+		
+		dict[ranks] += 1
+	
+	print(dict)
 
 
 func get_indexs(index_: int) -> Array:
