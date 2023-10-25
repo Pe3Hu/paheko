@@ -5,9 +5,7 @@ extends MarginContainer
 @onready var discharged = $VBox/Cards/Discharged
 @onready var broken = $VBox/Cards/Broken
 @onready var hand = $VBox/Cards/Hand
-@onready var tokens = $VBox/Tokens
-@onready var resources = $VBox/Resources
-@onready var crowns = $VBox/Crowns
+@onready var sacrifices = $VBox/Sacrifices
 
 var gambler = null
 
@@ -70,7 +68,6 @@ func pull_random_card() -> Variant:
 
 func pull_indexed_card(index_: int) -> Variant:
 	var cards = available.cards
-	var a = cards.get_children()
 	
 	if cards.get_child_count() > 0:
 		for card in cards.get_children():
@@ -167,20 +164,6 @@ func recharge_all_cards() -> void:
 			energy += 1
 	
 	print("energy: ", energy)
-
-
-func get_tokens_as_dict() -> Dictionary:
-	var result = {}
-	result["motion"] = 0
-	
-	for token in tokens.get_children():
-		var subtype = token.title.subtype
-		result[subtype] = gambler.gameboard.get_token_stack_value(subtype)
-	
-		if result[subtype] == 0 and subtype != "motion":
-			result.erase(subtype)
-	
-	return result
 
 
 func resort_available() -> void:

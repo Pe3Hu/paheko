@@ -9,3 +9,8 @@ res://script/Global.gd
 res://scene/1/gambler.gd
 res://scene/2/hand.gd
 res://scene/2/gameboard.gd
+res://scene/2/sacrifice.tscn
+res://scene/2/sacrifice.gd
+res://scene/2/resource.gd
+res://scene/2/resource.tscn
+res://scene/0/game.gd

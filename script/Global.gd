@@ -27,7 +27,7 @@ func init_arr() -> void:
 	arr.element = ["aqua", "wind", "fire", "earth"]
 	#arr.rank = [1, 2, 3, 4, 5, 6]#, 7, 8, 9]
 	#arr.suit = ["aqua", "wind", "fire", "earth"]
-	arr.rank = [1, 2, 3, 4, 5]
+	arr.rank = [1, 2, 3, 4, 5, 6]
 	arr.suit = ["aqua", "wind", "fire", "earth"]
 	arr.combination = ["duplet", "duplet_on_duplet", "triplet", "straight", "flush", "triplet_on_duplet", "quartet", "straight_on_flush", "roayl_flush", "quintet"]
 	arr.kit = ["unity", "harmony", "order"]
@@ -100,6 +100,9 @@ func init_scene() -> void:
 	
 	scene.card = load("res://scene/2/card.tscn")
 	scene.resource = load("res://scene/2/resource.tscn")
+	scene.sacrifice = load("res://scene/2/sacrifice.tscn")
+	
+	
 	pass
 
 

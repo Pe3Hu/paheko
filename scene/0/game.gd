@@ -12,9 +12,12 @@ func _ready() -> void:
 func _input(event) -> void:
 	if event is InputEventKey:
 		match event.keycode:
-			KEY_SPACE:
+			KEY_A:
 				if event.is_pressed() && !event.is_echo():
-					pass
+					Global.node.sketch.casino.gamblers.get_child(0).change_selected_sacrifice(-1)
+			KEY_D:
+				if event.is_pressed() && !event.is_echo():
+					Global.node.sketch.casino.gamblers.get_child(0).change_selected_sacrifice(1)
 
 
 func _process(delta_) -> void:

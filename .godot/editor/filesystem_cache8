@@ -1,5 +1,5 @@
 ea4bc82a6ad023ab7ee23ee620429895
-::res://::1698214877
+::res://::1698220276
 ::res://asset/::1697965223
 default_env.tres::Environment::-1::1690116911::0::1::::<><>::
 icon.png::CompressedTexture2D::2432420761471245026::1690116911::1690116911::1::::<><>::
@@ -17,8 +17,9 @@ LeagueGothic-Regular.otf::FontFile::2105460648084705691::1693025542::1693215257:
 ::res://asset/json/::1690795113
 ::res://asset/png/::1697965223
 ::res://asset/png/icon/::1697967078
-::res://asset/png/icon/resource/::1697967089
+::res://asset/png/icon/resource/::1698221186
 energy.png::CompressedTexture2D::3387481906441585427::1696866464::1697967089::1::::<><>::
+essence.png::CompressedTexture2D::7607155237362881059::1698221038::1698221189::1::::<><>::
 spares.png::CompressedTexture2D::2219470976693093105::1696866280::1697967089::1::::<><>::
 ::res://asset/png/icon/suit/::1697966113
 aqua.png::CompressedTexture2D::8933298401678598826::1697502012::1697966113::1::::<><>::
@@ -26,30 +27,31 @@ earth.png::CompressedTexture2D::9062492489797093211::1697501453::1697966113::1::
 fire.png::CompressedTexture2D::8063682268600131984::1697501355::1697966113::1::::<><>::
 wind.png::CompressedTexture2D::62068579724528677::1697501549::1697966113::1::::<><>::
 ::res://scene/::1697967389
-::res://scene/0/::1698144908
+::res://scene/0/::1698220276
 blank.tscn::PackedScene::706186300528003691::1697965622::0::1::::<><>::
 game.gd::GDScript::-1::1693571279::0::1::::<>Node<>::
 game.tscn::PackedScene::8246655032211948728::1697965537::0::1::::<><>::res://scene/0/game.gd
 icon.gd::GDScript::-1::1697967090::0::1::::<>MarginContainer<>::
 icon.tscn::PackedScene::5381527879177219912::1697967327::0::1::::<><>::res://scene/0/icon.gd<>uid://deu2vlj4q8un0
 sketch.gd::GDScript::-1::1697965701::0::1::::<>MarginContainer<>::
-sketch.tscn::PackedScene::7122070728214644470::1698144908::0::1::::<><>::res://scene/0/sketch.gd<>uid://ccopmgv4f4yc3::::res://scene/1/casino.tscn
-::res://scene/1/::1698144908
+sketch.tscn::PackedScene::7122070728214644470::1698219765::0::1::::<><>::res://scene/0/sketch.gd<>uid://ccopmgv4f4yc3::::res://scene/1/casino.tscn
+::res://scene/1/::1698219766
 casino.gd::GDScript::-1::1697965801::0::1::::<>MarginContainer<>::
-casino.tscn::PackedScene::4943052876543929688::1698144908::0::1::::<><>::res://scene/1/casino.gd
-gambler.gd::GDScript::-1::1698144612::0::1::::<>MarginContainer<>::
-gambler.tscn::PackedScene::6646221691171608632::1698144908::0::1::::<><>::res://scene/1/gambler.gd<>uid://bi41d7l5waq::::res://scene/2/gameboard.tscn
-::res://scene/2/::1698144908
+casino.tscn::PackedScene::4943052876543929688::1698219766::0::1::::<><>::res://scene/1/casino.gd
+gambler.gd::GDScript::-1::1698219765::0::1::::<>MarginContainer<>::
+gambler.tscn::PackedScene::6646221691171608632::1698219766::0::1::::<><>::res://scene/1/gambler.gd<>uid://bi41d7l5waq::::res://scene/2/gameboard.tscn
+::res://scene/2/::1698220276
 card.gd::GDScript::-1::1698139666::0::1::::<>MarginContainer<>::
-card.tscn::PackedScene::7552813529803395143::1698144908::0::1::::<><>::res://scene/2/card.gd<>uid://deu2vlj4q8un0::::res://asset/font/letter/Chunk Five Print.otf<>uid://ciw38iqel0v5a::::res://scene/0/icon.tscn
+card.tscn::PackedScene::7552813529803395143::1698219766::0::1::::<><>::res://scene/2/card.gd<>uid://deu2vlj4q8un0::::res://asset/font/letter/Chunk Five Print.otf<>uid://ciw38iqel0v5a::::res://scene/0/icon.tscn
 cardstack.gd::GDScript::-1::1696412900::0::1::::<>MarginContainer<>::
-cardstack.tscn::PackedScene::8835560087047656366::1698144908::0::1::::<><>::res://scene/2/cardstack.gd<>uid://deu2vlj4q8un0::::res://asset/font/letter/Chunk Five Print.otf
-gameboard.gd::GDScript::-1::1698139991::0::1::::<>MarginContainer<>::
-gameboard.tscn::PackedScene::2603273430788296::1698144908::0::1::::<><>::res://scene/2/gameboard.gd<>uid://dx5anbuure0tu::::res://scene/2/cardstack.tscn<>uid://ciru2q4vt5hi7::::res://scene/2/hand.tscn
-hand.gd::GDScript::-1::1698144661::0::1::::<>MarginContainer<>::
-hand.tscn::PackedScene::5370709980753891020::1698144908::0::1::::<><>::res://scene/2/hand.gd<>uid://deu2vlj4q8un0::::res://asset/font/letter/Chunk Five Print.otf
+cardstack.tscn::PackedScene::8835560087047656366::1698214910::0::1::::<><>::res://scene/2/cardstack.gd<>uid://deu2vlj4q8un0::::res://asset/font/letter/Chunk Five Print.otf
+gameboard.gd::GDScript::-1::1698218569::0::1::::<>MarginContainer<>::
+gameboard.tscn::PackedScene::2603273430788296::1698219766::0::1::::<><>::res://scene/2/gameboard.gd<>uid://dx5anbuure0tu::::res://scene/2/cardstack.tscn<>uid://ciru2q4vt5hi7::::res://scene/2/hand.tscn
+hand.gd::GDScript::-1::1698219765::0::1::::<>MarginContainer<>::
+hand.tscn::PackedScene::5370709980753891020::1698219766::0::1::::<><>::res://scene/2/hand.gd<>uid://deu2vlj4q8un0::::res://asset/font/letter/Chunk Five Print.otf
 resource.gd::GDScript::-1::1696608140::0::1::::<>MarginContainer<>::
 resource.tscn::PackedScene::3295204667483275735::1697970941::0::1::::<><>::res://scene/2/resource.gd<>uid://bvnpo88mdytkv
+sacrifice.tscn::PackedScene::5947042396870309372::1698220272::0::1::::<><>::
 ::res://scene/3/::1693571354
-::res://script/::1698144612
-Global.gd::GDScript::-1::1698144612::0::1::::<>Node<>::
+::res://script/::1698219592
+Global.gd::GDScript::-1::1698219592::0::1::::<>Node<>::

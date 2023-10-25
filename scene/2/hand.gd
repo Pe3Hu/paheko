@@ -22,6 +22,8 @@ func refill() -> void:
 	while cards.get_child_count() < capacity.current and gameboard.available.cards.get_child_count() > 0:
 		var card = gameboard.pull_random_card()
 		add_card(card)
+	
+	categorize_based_on_rank()
 
 
 func add_card(card_: MarginContainer) -> void:
@@ -41,9 +43,6 @@ func add_card(card_: MarginContainer) -> void:
 
 
 func refill_based_on_card_indexs(indexs_: Array) -> void:
-	var a = gameboard.available.cards.get_child_count()
-	var b = gameboard.available.cards.get_children()
-	
 	for index in indexs_:
 		draw_indexed_card(index)
 
@@ -94,132 +93,10 @@ func discard_card(card_: MarginContainer) -> void:
 		card_.area = gameboard.discharged
 
 
-func check_all_combinations() -> String:
-	var combinations = []
-	
-	for combination in Global.arr.combination:
-		var flag = call(combination+"_check")
-		
-		if flag:
-			combinations.append(combination)
-	
-	if combinations.has("straight_on_flush"):
-		combinations.erase("straight")
-		combinations.erase("flush")
-	
-	if combinations.has("roayl_flush"):
-		combinations.erase("straight_on_flush")
-	
-	if combinations.is_empty():
-		combinations.append("high card")
-	
-	return combinations.front()
-
-
-func duplet_check() -> bool:
-	var counts = []
-	
-	for rank in ranks:
-		counts.append(ranks[rank])
-	
-	counts.sort_custom(func(a, b): return a > b)
-	return counts[0] == 2 and counts[1] == 1
-
-
-func duplet_on_duplet_check() -> bool:
-	var counts = []
-	
-	for rank in ranks:
-		counts.append(ranks[rank])
-	
-	counts.sort_custom(func(a, b): return a > b)
-	return counts[0] == 2 and counts[1] == 2
-
-
-func triplet_check() -> bool:
-	var counts = []
-	
-	for rank in ranks:
-		counts.append(ranks[rank])
-	
-	counts.sort_custom(func(a, b): return a > b)
-	return counts[0] == 3# and counts[1] == 1
-
-
-func triplet_on_duplet_check() -> bool:
-	var counts = []
-	
-	for rank in ranks:
-		counts.append(ranks[rank])
-	
-	counts.sort_custom(func(a, b): return a > b)
-	
-	if counts.size() > 1:
-		return counts[0] == 3 and counts[1] == 2
-	else:
-		return false
-
-
-func quartet_check() -> bool:
-	var counts = []
-	
-	for rank in ranks:
-		counts.append(ranks[rank])
-	
-	counts.sort_custom(func(a, b): return a > b)
-	#if counts.size() > 1:
-	return counts[0] == 4
-	#else:
-	#	return counts[0] == 4 and counts[1] == 1
-
-
-func quintet_check() -> bool:
-	return ranks.keys().size() == 1
-
-
-func flush_check() -> bool:
-	return suits.keys().size() == 1
-
-
-func straight_check() -> bool:
-	for rank in ranks:
-		if ranks[rank] != 1:
-			return false
-	
-	var keys = []
-	keys.append_array(ranks.keys())
-	keys.sort()
-	
-	var flag = true
-	
-	for _i in keys.size()-1:
-		flag = flag and keys[_i] + 1 == keys[_i + 1]
-		
-		if !flag and _i == keys.size()-2:
-			if keys[_i + 1] == Global.arr.rank.back() and keys[0] == Global.arr.rank.front():
-				flag = true
-		
-		if !flag:
-			return flag
-	
-	return flag
-
-
-func straight_on_flush_check() -> bool:
-	return flush_check() and straight_check()
-
-
-func roayl_flush_check() -> bool:
-	return straight_on_flush_check() and ranks.has(Global.arr.rank.back()) and !ranks.has(Global.arr.rank.front())
-
-
 func get_all_kits() -> Dictionary:
 	var kits = {}
 	
 	for kit in Global.arr.kit:
-		var name_ = "get_" + kit + "_kits"
-		
-		#for count in Global.arr.count:
 		var count = capacity.current
 		kits[kit] = call("get_kits_based_on_type_and_count", kit, count)
 	
@@ -271,7 +148,6 @@ func get_kits_based_on_type_and_count(type_: String, count_: int) -> Array:#args
 	return kits
 
 
-
 func validate_unity(parents_: Array, child_: MarginContainer) -> bool:
 	return parents_.front().get_suit() == child_.get_suit()
 
@@ -291,3 +167,43 @@ func validate_order(parents_: Array, child_: MarginContainer) -> bool:
 		last = child_.get_rank() == Global.arr.rank.front() and parents_.front().get_rank() == Global.arr.rank.back()
 	
 	return first or last
+
+
+func categorize_based_on_suit() -> void:
+	var datas = {}
+	
+	for suit in Global.arr.suit:
+		datas[suit] = []
+	
+	while cards.get_child_count() > 0:
+		var card = cards.get_child(0)
+		cards.remove_child(card)
+		datas[card.get_suit()].append(card)
+	
+	
+	for suit in datas:
+		datas[suit].sort_custom(func(a, b): return a.get_rank() < b.get_rank())
+		
+		for card in datas[suit]:
+			cards.add_child(card)
+
+
+func categorize_based_on_rank() -> void:
+	var datas = {}
+	
+	for rank in Global.arr.rank:
+		datas[rank] = []
+	
+	while cards.get_child_count() > 0:
+		var card = cards.get_child(0)
+		cards.remove_child(card)
+		datas[card.get_rank()].append(card)
+	
+	
+	for suit in datas:
+		datas[suit].sort_custom(func(a, b): return Global.arr.suit.find(a.get_suit()) < Global.arr.suit.find(b.get_suit()))
+		
+		for card in datas[suit]:
+			cards.add_child(card)
+
+

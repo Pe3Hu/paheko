@@ -5,6 +5,7 @@
 [ext_resource type="PackedScene" uid="uid://ciw38iqel0v5a" path="res://scene/0/icon.tscn" id="3_1dvng"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_7paps"]
+bg_color = Color(0.486275, 0.486275, 0.486275, 1)
 
 [node name="Card" type="MarginContainer"]
 custom_minimum_size = Vector2(5, 5)

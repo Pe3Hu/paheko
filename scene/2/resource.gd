@@ -24,3 +24,4 @@ func set_attributes(input_: Dictionary) -> void:
 
 func change_stack(value_: int) -> void:
 	stack.change_number(value_)
+

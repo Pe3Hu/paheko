@@ -4,6 +4,7 @@ extends MarginContainer
 @onready var gameboard = $VBox/Gameboard
 
 var casino = null
+var sacrifice = null
 var datas = {}
 
 
@@ -26,9 +27,20 @@ func detect_hand_kits() -> void:
 	for kit in kits:
 		print("___",kit,"___")
 		for cards_ in kits[kit]:
-			print("_",cards_.size(),"_")
+	
+			var input = {}
+			input.hand = gameboard.hand
+			input.cards = cards_
+		
+			var sacrifice = Global.scene.sacrifice.instantiate()
+			gameboard.sacrifices.add_child(sacrifice)
+			sacrifice.set_attributes(input)
+			
+			print("_",cards_.size(),"_", sacrifice.essence.stack.get_number())
 			for card in cards_:
 				print([card.get_suit(), card.get_rank()])
+	
+	change_selected_sacrifice(0)
 
 
 func find_all_combinations() -> void:
@@ -61,9 +73,6 @@ func find_all_combinations() -> void:
 				
 				#print([datas.index[indexs].combination, datas.combination[datas.index[indexs].combination].size()])
 	
-	for combination in datas.combination:
-		print([combination, datas.combination[combination].size()])
-	var a = null
 
 
 func get_indexs(index_: int) -> Array:
@@ -90,3 +99,15 @@ func get_indexs(index_: int) -> Array:
 		return []
 	
 	return indexs
+
+
+func change_selected_sacrifice(shift_: int) -> void:
+	if sacrifice == null:
+		sacrifice = gameboard.sacrifices.get_child(0)
+		sacrifice.switch_visible()
+	
+	sacrifice.switch_visible()
+	
+	var index = (sacrifice.get_index() + shift_ + gameboard.sacrifices.get_child_count()) % gameboard.sacrifices.get_child_count()
+	sacrifice = gameboard.sacrifices.get_child(index)
+	sacrifice.switch_visible()
