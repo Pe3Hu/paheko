@@ -1,8 +1,9 @@
-[gd_scene load_steps=5 format=3 uid="uid://dfuv0acoxowgd"]
+[gd_scene load_steps=6 format=3 uid="uid://dfuv0acoxowgd"]
 
 [ext_resource type="Script" path="res://scene/2/card.gd" id="1_p3ovp"]
 [ext_resource type="FontFile" uid="uid://deu2vlj4q8un0" path="res://asset/font/letter/Chunk Five Print.otf" id="2_yogm4"]
 [ext_resource type="PackedScene" uid="uid://ciw38iqel0v5a" path="res://scene/0/icon.tscn" id="3_1dvng"]
+[ext_resource type="PackedScene" uid="uid://dyanxynw6ujrc" path="res://scene/0/couple.tscn" id="3_ui3cu"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_7paps"]
 bg_color = Color(0.486275, 0.486275, 0.486275, 1)
@@ -41,10 +42,7 @@ theme_override_fonts/font = ExtResource("2_yogm4")
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Suit" parent="VBox" instance=ExtResource("3_1dvng")]
-layout_mode = 2
-
-[node name="Rank" parent="VBox" instance=ExtResource("3_1dvng")]
+[node name="Couple" parent="VBox" instance=ExtResource("3_ui3cu")]
 layout_mode = 2
 
 [node name="Charge" type="HBoxContainer" parent="VBox"]

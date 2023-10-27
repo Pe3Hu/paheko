@@ -41,6 +41,7 @@ func init_num() -> void:
 
 func init_dict() -> void:
 	init_neighbor()
+	init_card()
 
 
 func init_neighbor() -> void:
@@ -89,6 +90,52 @@ func init_neighbor() -> void:
 	]
 
 
+func init_card() -> void:
+	dict.card = {}
+	dict.aspect = {}
+	dict.aspect.energy = ["generation", "cost"]
+	dict.aspect.damage = ["cohesion", "single", "blast", "wave"]
+	dict.aspect.barrier = ["single", "wave"]
+	dict.aspect.token = ["renovation", "battery"]
+	
+	dict.weight = {}
+	dict.weight.attack = {}
+	dict.weight.attack.energy = {}
+	dict.weight.attack.energy.generation = 1.0/5
+	dict.weight.attack.energy.cost = -1.0/5
+	dict.weight.attack.damage = {}
+	dict.weight.attack.damage.cohesion = 1.0/3
+	dict.weight.attack.damage.single = 1.0/4
+	dict.weight.attack.damage.blast = 1.0/2
+	dict.weight.attack.damage.wave  = 1
+	
+	dict.weight.defense = {}
+	dict.weight.defense.energy = {}
+	dict.weight.defense.energy.generation = 1.0/6
+	dict.weight.defense.energy.cost = -1.0/6
+	dict.weight.defense.barrier = {}
+	dict.weight.defense.barrier.single = 1.0/4
+	dict.weight.defense.barrier.wave  = 1
+	dict.weight.defense.buff = {}
+	dict.weight.defense.buff.renovation = 2
+	dict.weight.defense.buff.battery  = 3
+	
+	dict.point = {}
+	dict.point.least = {}
+	dict.point.least.blast = 4
+	dict.point.least.wave = 3
+	dict.point.least.renovation = 2
+	dict.point.least.battery = 3
+	
+	dict.kit = {}
+	dict.kit.count = {}
+	dict.kit.count.points = {}
+	
+	for _i in range(2, 6, 1):
+		var n = pow(_i+1, 2)
+		dict.kit.count.points[_i] = n
+
+
 func init_node() -> void:
 	node.game = get_node("/root/Game")
 
@@ -102,6 +149,9 @@ func init_scene() -> void:
 	scene.resource = load("res://scene/2/resource.tscn")
 	scene.sacrifice = load("res://scene/2/sacrifice.tscn")
 	
+	scene.spell = load("res://scene/3/spell.tscn")
+	scene.aspect = load("res://scene/3/aspect.tscn")
+	
 	
 	pass
 
@@ -109,8 +159,11 @@ func init_scene() -> void:
 func init_vec():
 	vec.size = {}
 	vec.size.letter = Vector2(20, 20)
-	vec.size.icon = Vector2(48, 48)
+	vec.size.icon = Vector2(32, 32)
 	vec.size.number = Vector2(5, 32)
+	vec.size.sixteen = Vector2(16, 16)
+	vec.size.suit = Vector2(32, 32)
+	vec.size.aspect = Vector2(48, 48)
 	
 	init_window_size()
 
@@ -123,7 +176,12 @@ func init_window_size():
 
 
 func init_color():
+	var h = 360.0
 	color.indicator = {}
+	
+	color.card = {}
+	color.card.selected = Color.from_hsv(160 / h, 0.6, 0.7)
+	color.card.unselected = Color.from_hsv(0 / h, 0.4, 0.9)
 
 
 func save(path_: String, data_: String):

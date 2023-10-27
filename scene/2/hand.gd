@@ -12,7 +12,7 @@ var suits = {}
 func set_attributes(input_: Dictionary) -> void:
 	gameboard = input_.gameboard
 	
-	capacity.current = 4
+	capacity.current = 6
 	capacity.limit = 10
 
 
@@ -98,7 +98,9 @@ func get_all_kits() -> Dictionary:
 	
 	for kit in Global.arr.kit:
 		var count = capacity.current
-		kits[kit] = call("get_kits_based_on_type_and_count", kit, count)
+		
+		if kit != "chaos":
+			kits[kit] = call("get_kits_based_on_type_and_count", kit, count)
 	
 	return kits
 
@@ -106,7 +108,6 @@ func get_all_kits() -> Dictionary:
 func get_kits_based_on_type_and_count(type_: String, count_: int) -> Array:#args_: Array) -> Array:
 	var kits = []
 	var datas = {}
-	datas[0] = {}
 	datas[0] = []
 	var options = cards.get_children()
 	
@@ -158,23 +159,23 @@ func validate_harmony(parents_: Array, child_: MarginContainer) -> bool:
 
 func validate_order(parents_: Array, child_: MarginContainer) -> bool:
 	var rank = child_.get_rank()
-	var ranks = []
+	var ranks_ = []
 	
 	for parent in parents_:
-		ranks.append(parent.get_rank())
+		ranks_.append(parent.get_rank())
 	
-	if ranks.has(rank):
+	if ranks_.has(rank):
 		return false
 	
-	ranks.sort()
-	var first = ranks.front() == rank + 1
-	var last = ranks.back() + 1 == rank
+	ranks_.sort()
+	var first = ranks_.front() == rank + 1
+	var last = ranks_.back() + 1 == rank
 	
 	if !first:
-		first = rank == Global.arr.rank.back() and ranks.front() == Global.arr.rank.front()
+		first = rank == Global.arr.rank.back() and ranks_.front() == Global.arr.rank.front()
 	
 	if !last:
-		last = rank == Global.arr.rank.front() and ranks.back() == Global.arr.rank.back()
+		last = rank == Global.arr.rank.front() and ranks_.back() == Global.arr.rank.back()
 	
 	return first or last
 

@@ -14,34 +14,36 @@ func set_attributes(input_: Dictionary) -> void:
 	var input = {}
 	input.gambler = self
 	gameboard.set_attributes(input)
-	find_all_kits()
-	#detect_hand_kits()
+	#find_all_kits()
+	detect_hand_kits()
 
 
 func detect_hand_kits() -> void:
-	var indexs = [0,1,2,3]
 	gameboard.hand.refill()
-	#gameboard.hand.refill_based_on_card_indexs(indexs)
+	#gameboard.hand.refill_based_on_card_indexs(indexs)et_rank()])
 	var kits = gameboard.hand.get_all_kits()
 	#gameboard.hand.get_kits_based_on_type_and_count("harmony", 4)
 	
 	for kit in kits:
-		print("___",kit,"___")
+		#print("___",kit,"___")
 		for cards_ in kits[kit]:
-	
 			var input = {}
-			input.hand = gameboard.hand
+			input.gambler = self
+			input.kit = kit
 			input.cards = cards_
-		
-			var sacrifice = Global.scene.sacrifice.instantiate()
-			gameboard.sacrifices.add_child(sacrifice)
-			sacrifice.set_attributes(input)
-			
-			print("_",cards_.size(),"_", sacrifice.essence.stack.get_number())
-			for card in cards_:
-				print([card.get_suit(), card.get_rank()])
+
+			var sacrifice_ = Global.scene.sacrifice.instantiate()
+			gameboard.sacrifices.add_child(sacrifice_)
+			sacrifice_.set_attributes(input)
+#
+#			print("_",cards_.size(),"_", sacrifice.essence.stack.get_number())
+#			for card in cards_:
+#				print([card.get_suit(), card.g
 	
-	change_selected_sacrifice(0)
+	var sacrifice_ = get_best_attack()
+	set_sacrifice_as_selected(sacrifice_)
+	sacrifice.init_spells()
+	#change_selected_sacrifice(0)
 
 
 func find_all_kits() -> void:
@@ -75,29 +77,63 @@ func find_all_kits() -> void:
 				
 				#print([datas.index[indexs].kit, datas.kit[datas.index[indexs].kit].size()])
 	
-	for kit in Global.arr.kit:
-		print([kit, datas.kit[kit].size()])
+#	for kit in Global.arr.kit:
+#		print([kit, datas.kit[kit].size()])
+#
+#	var dict = {}
+#
+#	for indexs in datas.kit["order"]:
+#		var ranks = []
+#
+#		for index in indexs:
+#			var card = gameboard.pull_indexed_card(index)
+#			ranks.append(card.get_rank())
+#			gameboard.available.cards.add_child(card)
+#
+#		if !dict.has(ranks):
+#			dict[ranks] = 0
+#
+#		dict[ranks] += 1
+#
+#	print(dict)
+	pass
+
+
+func get_longest_sacrifices() -> Dictionary:
+	var kits = gameboard.hand.get_all_kits()
+	var result = {}
+	var longests = {}
 	
-	var dict = {}
+	for kit in kits:
+		longests[kit] = kits[kit].back().size()
+		#kits[kit].sort_custom(func(a, b): return a.size() < b.size())
+		
+		result[kit] = []
+#
+#		for cards in kits[kit]:
+#			if cards.size() == kits[kit].back().size():
+#				result[kit].append(cards)
 	
-	for indexs in datas.kit["order"]:
-		var ranks = []
-		
-		for index in indexs:
-			var card = gameboard.pull_indexed_card(index)
-			ranks.append(card.get_rank())
-			gameboard.available.cards.add_child(card)
-		
-		if !dict.has(ranks):
-			dict[ranks] = 0
-		
-		dict[ranks] += 1
+	for sacrifice_ in gameboard.sacrifices.get_children():
+		if sacrifice_.cards.size() == longests[sacrifice_.kit]:
+			result[sacrifice_.kit].append(sacrifice_)
 	
-	print(dict)
+	return result
+
+
+func get_best_attack() -> Variant:
+	var sacrifice_ = null
+	var longests = get_longest_sacrifices()
+	
+	if longests.has("order"):
+		longests["order"].sort_custom(func(a, b): return a.essence.stack.get_number() > b.essence.stack.get_number() )
+		sacrifice_ = longests["order"].front()
+	
+	return sacrifice_
 
 
 func get_indexs(index_: int) -> Array:
-	var n = gameboard.hand.capacity.current
+	#var n = gameboard.hand.capacity.current
 	var m = gameboard.available.cards.get_child_count()
 	var indexs = []
 	
@@ -131,4 +167,12 @@ func change_selected_sacrifice(shift_: int) -> void:
 	
 	var index = (sacrifice.get_index() + shift_ + gameboard.sacrifices.get_child_count()) % gameboard.sacrifices.get_child_count()
 	sacrifice = gameboard.sacrifices.get_child(index)
+	sacrifice.switch_visible()
+
+
+func set_sacrifice_as_selected(sacrifices_: MarginContainer) -> void:
+	if sacrifice != null:
+		sacrifice.switch_visible()
+	
+	sacrifice = sacrifices_
 	sacrifice.switch_visible()

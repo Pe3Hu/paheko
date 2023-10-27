@@ -12,9 +12,10 @@ func set_attributes(input_: Dictionary) -> void:
 	type  = input_.type
 	subtype  = input_.subtype
 	
+	set_font_size(16)
 	custom_minimum_size = Vector2(Global.vec.size.letter)
 	var path = "res://asset/png/icon/"
-	var types = ["suit", "resource"]
+	var types = ["suit", "resource", "damage", "energy", "token"]
 	
 	if types.has(type):
 		custom_minimum_size = Vector2(Global.vec.size.icon)
@@ -70,3 +71,11 @@ func set_number(value_) -> void:
 			value = snapped(value, 0.01)
 			number.text = str(value)
 
+
+func set_font_size(font_size_: int) -> void:
+	number.set("theme_override_font_sizes/font_size", font_size_)
+
+
+func add_tab_to_number() -> void:
+	number.text = str("
+" + str(subtype))

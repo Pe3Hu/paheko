@@ -2,8 +2,7 @@ extends MarginContainer
 
 
 @onready var index = $VBox/Index
-@onready var suitIcon = $VBox/Suit
-@onready var rankValue = $VBox/Rank
+@onready var couple = $VBox/Couple
 @onready var chargeIcon = $VBox/Charge/Icon
 @onready var chargeValue = $VBox/Charge/Value
 @onready var toughnessIcon = $VBox/Toughness/Icon
@@ -26,14 +25,14 @@ func set_attributes(input_: Dictionary) -> void:
 	toughness.current = toughness.limit
 	
 	set_icons(input_)
+	var style = StyleBoxFlat.new()
+	bg.set("theme_override_styles/panel", style)
+	set_selected(false)
 
 
 func set_icons(input_: Dictionary) -> void:
 	var input = {}
 	input.type = "number"
-	input.subtype =  input_.rank
-	rankValue.set_attributes(input)
-	
 	input.subtype = charge.current
 	chargeValue.set_attributes(input)
 	
@@ -41,8 +40,6 @@ func set_icons(input_: Dictionary) -> void:
 	toughnessValue.set_attributes(input)
 
 	input.type = "suit"
-	input.subtype = input_.suit
-	suitIcon.set_attributes(input)
 	
 	input.type = "resource"
 	input.subtype = "energy"
@@ -50,17 +47,32 @@ func set_icons(input_: Dictionary) -> void:
 	
 	input.subtype = "spares"
 	toughnessIcon.set_attributes(input)
+	
+	input.proprietor = self
+	input.type = "suit"
+	input.subtype = input_.suit
+	input.value = input_.rank
+	couple.set_attributes(input)
 
 
 func get_suit() -> String:
-	return suitIcon.subtype
+	return couple.title.subtype
 
 
 func get_rank() -> int:
-	return rankValue.get_number()
+	return couple.stack.get_number()
 
 
 func get_index_number() -> int:
 	return int(index.text)
 
 
+func set_selected(selected_: bool) -> void:
+	var style = bg.get("theme_override_styles/panel")
+	
+	match selected_:
+		true:
+			style.bg_color = Global.color.card.selected
+			pass
+		false:
+			style.bg_color = Global.color.card.unselected

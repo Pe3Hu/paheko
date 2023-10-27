@@ -1,7 +1,7 @@
 [gd_scene load_steps=4 format=3 uid="uid://cqy16i3g54goa"]
 
 [ext_resource type="Script" path="res://scene/2/sacrifice.gd" id="1_1cje5"]
-[ext_resource type="PackedScene" uid="uid://bm7hslucpji68" path="res://scene/2/resource.tscn" id="2_plaas"]
+[ext_resource type="PackedScene" uid="uid://dyanxynw6ujrc" path="res://scene/0/couple.tscn" id="2_icwuo"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_7paps"]
 
@@ -31,5 +31,8 @@ theme_override_styles/panel = SubResource("StyleBoxFlat_7paps")
 layout_mode = 2
 alignment = 1
 
-[node name="Essence" parent="VBox" instance=ExtResource("2_plaas")]
+[node name="Essence" parent="VBox" instance=ExtResource("2_icwuo")]
+layout_mode = 2
+
+[node name="Spells" type="HBoxContainer" parent="VBox"]
 layout_mode = 2
