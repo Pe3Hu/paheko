@@ -19,6 +19,7 @@ func set_attributes(input_: Dictionary) -> void:
 		input.value = 0
 		var aspect = get(input.subtype)
 		aspect.set_attributes(input)
+		aspect.hide_icons()
 	
 	init_aspects(input_.description)
 
@@ -40,4 +41,5 @@ func init_aspects(description_: Dictionary) -> void:
 			else:
 				aspect = get(input.subtype)
 				aspect.stack.set_number(description_[type][subtype])
-			
+				aspect.show_icons()
+

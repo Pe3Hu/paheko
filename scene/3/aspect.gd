@@ -21,7 +21,14 @@ func set_attributes(input_: Dictionary) -> void:
 	input.subtype = input_.value
 	stack.set_attributes(input)
 	stack.custom_minimum_size = Vector2(Global.vec.size.aspect)
-	
-	if input_.subtype == "generation":
-		#stack.add_tab_to_number()
-		title.size_flags_vertical = 0
+	custom_minimum_size = Vector2(Global.vec.size.aspect)
+
+
+func hide_icons() -> void:
+	title.visible = false
+	stack.visible = false
+
+
+func show_icons() -> void:
+	title.visible = true
+	stack.visible = true

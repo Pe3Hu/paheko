@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://fbb1k4v7ce7w"
-path="res://.godot/imported/blast.png-48e381d08b88f7656e6d5db430faf2a4.ctex"
+uid="uid://bllrosing16q8"
+path="res://.godot/imported/pillar.png-3005d2df95bafc5fa1650630400a2622.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://asset/png/icon/damage/blast.png"
-dest_files=["res://.godot/imported/blast.png-48e381d08b88f7656e6d5db430faf2a4.ctex"]
+source_file="res://asset/png/icon/ui/pillar.png"
+dest_files=["res://.godot/imported/pillar.png-3005d2df95bafc5fa1650630400a2622.ctex"]
 
 [params]
 

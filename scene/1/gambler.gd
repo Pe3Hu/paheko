@@ -1,6 +1,7 @@
 extends MarginContainer
 
 
+@onready var altar = $VBox/Altar
 @onready var gameboard = $VBox/Gameboard
 
 var casino = null
@@ -13,6 +14,7 @@ func set_attributes(input_: Dictionary) -> void:
 	
 	var input = {}
 	input.gambler = self
+	altar.set_attributes(input)
 	gameboard.set_attributes(input)
 	#find_all_kits()
 	detect_hand_kits()

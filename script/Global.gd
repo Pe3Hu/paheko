@@ -35,13 +35,16 @@ func init_arr() -> void:
 
 func init_num() -> void:
 	num.index = {}
-	
 	num.index.card = 0
+	
+	num.altar = {}
+	num.altar.r = 96
 
 
 func init_dict() -> void:
 	init_neighbor()
 	init_card()
+	init_spell()
 
 
 func init_neighbor() -> void:
@@ -119,6 +122,10 @@ func init_card() -> void:
 	dict.weight.defense.buff = {}
 	dict.weight.defense.buff.renovation = 2
 	dict.weight.defense.buff.battery  = 3
+
+
+func init_spell() -> void:
+	dict.spell = {}
 	
 	dict.point = {}
 	dict.point.least = {}
@@ -127,6 +134,12 @@ func init_card() -> void:
 	dict.point.least.renovation = 2
 	dict.point.least.battery = 3
 	
+	dict.tag = {}
+	dict.tag.targets = {}
+	dict.tag.targets.single = 1
+	dict.tag.targets.blast = 2
+	dict.tag.targets.wave = 4
+	
 	dict.kit = {}
 	dict.kit.count = {}
 	dict.kit.count.points = {}
@@ -134,6 +147,18 @@ func init_card() -> void:
 	for _i in range(2, 6, 1):
 		var n = pow(_i+1, 2)
 		dict.kit.count.points[_i] = n
+	
+	dict.inception = {}
+	dict.inception.generation = 5
+	dict.inception.cost = 2
+	
+	dict.inception.cohesion = 9
+	dict.inception.single = 7
+	dict.inception.blast = 5
+	dict.inception.wave  = 3
+	
+	dict.inception.renovation = 4
+	dict.inception.battery  = 2
 
 
 func init_node() -> void:
@@ -146,11 +171,13 @@ func init_scene() -> void:
 	scene.gambler = load("res://scene/1/gambler.tscn")
 	
 	scene.card = load("res://scene/2/card.tscn")
-	scene.resource = load("res://scene/2/resource.tscn")
+	#scene.resource = load("res://scene/2/resource.tscn")
 	scene.sacrifice = load("res://scene/2/sacrifice.tscn")
 	
 	scene.spell = load("res://scene/3/spell.tscn")
 	scene.aspect = load("res://scene/3/aspect.tscn")
+	
+	scene.pillar = load("res://scene/4/pillar.tscn")
 	
 	
 	pass
@@ -163,7 +190,9 @@ func init_vec():
 	vec.size.number = Vector2(5, 32)
 	vec.size.sixteen = Vector2(16, 16)
 	vec.size.suit = Vector2(32, 32)
-	vec.size.aspect = Vector2(48, 48)
+	vec.size.aspect = Vector2(40, 40)
+	vec.size.pillar = Vector2(64, 64)
+	vec.size.altar = Vector2.ONE * num.altar.r * 2 + vec.size.pillar
 	
 	init_window_size()
 

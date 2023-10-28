@@ -1,0 +1,9 @@
+[gd_scene load_steps=3 format=3 uid="uid://c0hgx6lp5ltwt"]
+
+[ext_resource type="Texture2D" uid="uid://bllrosing16q8" path="res://asset/png/icon/ui/pillar.png" id="1_gnumb"]
+[ext_resource type="Script" path="res://scene/4/pillar.gd" id="2_irrar"]
+
+[node name="Pillar" type="Sprite2D"]
+scale = Vector2(0.125, 0.125)
+texture = ExtResource("1_gnumb")
+script = ExtResource("2_irrar")
